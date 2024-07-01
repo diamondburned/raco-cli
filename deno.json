@@ -4,7 +4,8 @@
       "dom",
       "dom.iterable",
       "deno.ns"
-    ]
+    ],
+    "strict": false
   },
   "fmt": {
     "lineWidth": 120

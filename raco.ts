@@ -111,7 +111,7 @@ export async function events(areaID: number, genres: string[], page = 1): Promis
   );
 
   return {
-    events: data.eventListings.data.map((listing: unknown) => ({
+    events: data.eventListings.data.map((listing) => ({
       name: listing.event.title,
       url: "https://ra.co" + listing.event.contentUrl,
       date: new Date(listing.listingDate),
@@ -120,12 +120,12 @@ export async function events(areaID: number, genres: string[], page = 1): Promis
         name: listing.event.venue.name,
         url: "https://ra.co" + listing.event.venue.contentUrl,
       },
-      artists: listing.event.artists.map((artist: any) => ({
+      artists: listing.event.artists.map((artist) => ({
         name: artist.name,
         url: "https://ra.co" + artist.contentUrl,
       })),
       attending: listing.event.attending || 0,
-      imageURLs: listing.event.images.map((image: any) => image.filename),
+      imageURLs: listing.event.images.map((image) => image.filename),
     } as Event)),
     total: data.eventListings.totalResults,
   };
