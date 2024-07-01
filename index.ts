@@ -19,9 +19,8 @@ Flags:
 async function main() {
   const args = flags.parse(Deno.args, {
     boolean: ["json", "help", "verbose"],
-    string: ["country", "area"],
+    string: ["area"],
     alias: {
-      "country": "c",
       "area": "a",
       "json": "j",
       "help": "h",
@@ -64,10 +63,15 @@ async function main() {
 
   for (const event of events) {
     const eventDate = event.date.toLocaleDateString(undefined, { dateStyle: "medium" });
+    const eventFrom = event.time[0].toLocaleTimeString(undefined, { hour: "numeric" });
+    const eventTo = event.time[1].toLocaleTimeString(undefined, { hour: "numeric" });
     console.log(
-      `%c🗓️  ${eventDate}  ̸📍 ${event.venue.name}` +
-        (event.attending ? ` ̸ 👤 ${event.attending}` : ""),
-      "font-weight: bold; color: grey",
+      `%c🗓️  ${eventDate} %c(${eventFrom} - ${eventTo})%c` +
+        `  ̸ 📍 ${terminalLink(event.venue.name, event.venue.url)}` +
+        (event.attending ? `  ̸ 👤 ${event.attending}` : ""),
+      "color: grey; font-weight: bold",
+      "color: grey",
+      "color: grey; font-weight: bold",
     );
     console.log(
       `   %c${terminalLink(event.name, event.url)}`,

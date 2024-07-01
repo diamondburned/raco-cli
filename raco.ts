@@ -1,6 +1,6 @@
 import * as graphql from "https://deno.land/x/graphql_request@v4.1.0/mod.ts";
 
-type Area = {
+export type Area = {
   id: number;
   name: string;
   country: string;
@@ -36,12 +36,12 @@ export async function area(query: string): Promise<Area> {
   };
 }
 
-type Resource = {
+export type Resource = {
   name: string;
   url: string;
 };
 
-type Event = Resource & {
+export type Event = Resource & {
   date: Date;
   time: [Date, Date];
   venue: Resource;
@@ -50,7 +50,7 @@ type Event = Resource & {
   imageURLs: string[];
 };
 
-type EventsResult = {
+export type EventsResult = {
   events: Event[];
   total: number;
 };
