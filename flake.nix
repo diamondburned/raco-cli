@@ -28,7 +28,7 @@
 
         packages.default =
           let
-            scriptHash = "sha256-ol6VqcQSHtKBMbAg2174HoUrf221VQ9Em0Rf/50/3hg=";
+            scriptHash = "sha256-UVs/yhDsP+WuiexORgTutMBzehixB2+nhA1eQxp/MNk=";
             script = pkgs.stdenv.mkDerivation {
               name = "raco-cli.js";
               src = ./.;
