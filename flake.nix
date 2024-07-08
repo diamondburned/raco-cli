@@ -26,6 +26,35 @@
           ];
         };
 
+        packages.default =
+          let
+            scriptHash = "sha256-ol6VqcQSHtKBMbAg2174HoUrf221VQ9Em0Rf/50/3hg=";
+            script = pkgs.stdenv.mkDerivation {
+              name = "raco-cli.js";
+              src = ./.;
+
+              nativeBuildInputs = with pkgs; [ deno ];
+
+              phases = [
+                "unpackPhase"
+                "buildPhase"
+              ];
+
+              buildPhase = ''
+                export HOME=$(mktemp -d)
+                deno bundle ./index.ts > $out
+              '';
+
+              outputHash = scriptHash;
+              outputHashAlgo = "sha256";
+              outputHashMode = "flat";
+            };
+            output = pkgs.writeShellScriptBin "raco-cli" ''
+              exec ${pkgs.deno}/bin/deno run -A --no-remote ${script} "$@"
+            '';
+          in
+          output;
+
         formatter = pkgs.nixfmt-rfc-style;
       }
     );
