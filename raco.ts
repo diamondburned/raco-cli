@@ -45,6 +45,7 @@ export type Event = Resource & {
   date: Date;
   time: [Date, Date];
   venue: Resource;
+  genres: Resource[];
   artists: Resource[];
   attending: number;
   imageURLs: string[];
@@ -71,6 +72,10 @@ export async function events(areaID: number, genres: string[], page = 1): Promis
               startTime
               endTime
               attending
+              genres {
+                name
+                contentUrl
+              }
               images {
                 filename
                 type
@@ -123,6 +128,10 @@ export async function events(areaID: number, genres: string[], page = 1): Promis
       artists: listing.event.artists.map((artist) => ({
         name: artist.name,
         url: "https://ra.co" + artist.contentUrl,
+      })),
+      genres: listing.event.genres.map((genre) => ({
+        name: genre.name,
+        url: "https://ra.co" + genre.contentUrl,
       })),
       attending: listing.event.attending || 0,
       imageURLs: listing.event.images.map((image) => image.filename),

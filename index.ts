@@ -69,13 +69,16 @@ async function main() {
       `%c🗓️  ${eventDate} %c(${eventFrom} - ${eventTo})%c` +
         `  ̸ 📍 ${terminalLink(event.venue.name, event.venue.url)}` +
         (event.attending ? `  ̸ 👤 ${event.attending}` : ""),
-      "color: grey; font-weight: bold",
+      "font-weight: bold",
       "color: grey",
       "color: grey; font-weight: bold",
     );
     console.log(
-      `   %c${terminalLink(event.name, event.url)}`,
+      `   ` +
+        `%c${terminalLink(event.name, event.url)} ` +
+        `%c[${event.genres.map((g) => terminalLink(g.name, g.url)).join(", ")}]`,
       "font-weight: bold",
+      "color: grey",
     );
     if (event.artists.length > 0) {
       console.log(
